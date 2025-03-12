@@ -15,7 +15,6 @@ contract OurTokenTest is Test {
     uint256 public constant STARTING_BALANCE = 100 ether;
 
     function setUp() public {
-
         deployer = new DeployOurToken();
         ourToken = deployer.run();
 
@@ -24,11 +23,11 @@ contract OurTokenTest is Test {
     }
 
     function testBobBalance() public view {
-        assert( STARTING_BALANCE == ourToken.balanceOf(bob));
+        assert(STARTING_BALANCE == ourToken.balanceOf(bob));
     }
 
-    function testAllowancesWorks()public {
-        uint256 initialAllowances = 1000 ;
+    function testAllowancesWorks() public {
+        uint256 initialAllowances = 1000;
 
         vm.prank(bob);
         ourToken.approve(alice, initialAllowances);
@@ -36,11 +35,10 @@ contract OurTokenTest is Test {
         uint256 transferAmount = 100;
 
         vm.prank(alice);
-        ourToken.transferFrom(bob , alice ,transferAmount);
+        ourToken.transferFrom(bob, alice, transferAmount);
 
         assert(ourToken.balanceOf(alice) == transferAmount);
 
         assert(ourToken.balanceOf(bob) == (STARTING_BALANCE - transferAmount));
-    
     }
 }
